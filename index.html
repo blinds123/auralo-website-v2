@@ -426,27 +426,65 @@
         }
         
         .buy-now-button {
-            background: var(--simpleswap-blue);
-            color: var(--big-day-white);
             border: none;
-            padding: var(--space-md) var(--space-xl);
+            padding: 16px 32px;
             font-family: var(--font-headline);
-            font-size: 1.1rem;
+            font-size: 18px;
             font-weight: 700;
-            border-radius: 50px;
+            border-radius: 8px;
             cursor: pointer;
             transition: var(--common-transition);
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
             width: 100%;
-            max-width: 300px;
-            min-height: 44px;
-            min-width: 44px;
+            max-width: 420px;
+            min-height: 65px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+            margin: 0 auto;
         }
         
-        .buy-now-button:hover {
-            background: var(--simpleswap-dark-blue);
+        /* Primary button - dark background */
+        .buy-now-button.primary {
+            background: #6b7280;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .buy-now-button.primary:hover {
+            background: #4b5563;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Secondary button - outlined style */
+        .buy-now-button.secondary {
+            background: white;
+            color: #111827;
+            border: 2px solid #111827;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .buy-now-button.secondary:hover {
+            background: #f9fafb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .button-price {
+            font-size: 20px;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .button-subtext {
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.85;
+            display: block;
+            margin-top: 4px;
         }
         
         .hero-cta-text {
@@ -1037,16 +1075,18 @@
             </div>
             
             <!-- PAYMENT GATEWAY STATUS -->
-            <div id="paymentGatewayStatus" class="payment-gateway-status">
-                ✅ Payment gateway ready - redirecting to SimpleSwap...
+            <div id="paymentGatewayStatus" class="payment-gateway-status" style="display: none;">
+                <!-- Status will be updated dynamically -->
             </div>
             
             <div class="hero-cta">
-                <button class="buy-now-button" id="mainBuyButton" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" id="mainBuyButton" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" id="preOrderButton" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" id="preOrderButton" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
                 <p class="hero-cta-text">✅ 60-second checkout • ✅ Free shipping • ✅ Secure payment</p>
             </div>
@@ -1101,11 +1141,13 @@
             <div class="stock-warning">⚡ Only 2-3 pieces left in most sizes</div>
             
             <div class="section-cta">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    🔥 ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ⏰ ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
                 <p style="text-align: center; margin-top: 8px; font-size: 13px; color: #666;">✅ 60-second checkout • ✅ Free shipping • ✅ Secure payment</p>
             </div>
@@ -1166,11 +1208,13 @@
             </div>
             
             <div style="text-align: center; margin-top: 24px;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1207,11 +1251,13 @@
             </div>
             
             <div style="text-align: center; margin-top: 32px;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1314,11 +1360,13 @@
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1355,11 +1403,13 @@
             </div>
             
             <div style="text-align: center; margin: 24px 0;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
             
@@ -1393,11 +1443,13 @@
             </div>
             
             <div style="text-align: center; margin: 24px 0;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1419,11 +1471,13 @@
             </div>
             
             <div class="section-cta">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
                 <p style="text-align: center; margin-top: 8px; font-size: 13px; color: #666;">60-second eco-checkout • Plants 5 trees • Free shipping</p>
             </div>
@@ -1467,11 +1521,13 @@
             </div>
             
             <div style="text-align: center; margin-top: 32px;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1545,11 +1601,13 @@
             <p style="text-align: center; margin-top: 24px; font-weight: 600;">You save money. Planet gets trees. Everyone wins.</p>
             
             <div style="text-align: center; margin-top: 32px;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1570,11 +1628,13 @@
                 <p style="font-size: 18px; line-height: 1.8; color: #333; margin-bottom: 32px;">
                     While everyone else paid €200, you got it for €19.50. That's the power of being early.
                 </p>
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1620,11 +1680,13 @@
             </p>
             
             <div style="text-align: center; margin-top: 24px;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -1653,11 +1715,13 @@
             </div>
             
             <div style="text-align: center;">
-                <button class="buy-now-button" onclick="addToCart('order-now', 99)">
-                    ADD TO CART - <del style="opacity: 0.7;">$200</del> $99
+                <button class="buy-now-button primary" onclick="addToCart('order-now', 99)">
+                    <span class="button-price">ADD TO CART - <del style="opacity: 0.6;">$120</del> $49</span>
+                    <span class="button-subtext">In-Stock: Ready to Ship</span>
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ADD PRE-ORDER TO CART - <del style="opacity: 0.7;">$200</del> $19
+                <button class="buy-now-button secondary" onclick="addToCart('pre-order', 19)" style="margin-top: 12px;">
+                    <span class="button-price">ADD PRE-ORDER TO CART - <del style="opacity: 0.6;">$120</del> $39</span>
+                    <span class="button-subtext">Wait & Save: Estimated to Ship Oct 23</span>
                 </button>
             </div>
         </section>
@@ -2081,17 +2145,21 @@
                         // Use Product Requirements Prompt (PRP) business solution
                         const spooferUrl = window.location.origin + '/prp-business-solution.html';
                         
+                        // Generate SimpleSwap URL with selected price
+                        const amount = selectedPrice || 49;
+                        const simpleswapUrl = `https://simpleswap.io/exchange?from=usd-usd&to=pol-matic&amount=${amount}`;
+                        
                         // Reset payment state
                         setTimeout(() => {
                             buttons.forEach(button => {
                                 button.classList.remove('processing');
-                                button.textContent = 'Complete Purchase - €19.50';
+                                button.textContent = button.textContent.replace('Processing...', 'Complete Purchase');
                             });
                             paymentInProgress = false;
                         }, 1000);
                         
-                        // Redirect to spoofer - DO NOT continue execution
-                        window.location.replace(spooferUrl);
+                        // Redirect to SimpleSwap
+                        window.location.href = simpleswapUrl;
                         return; // Critical: Stop all further execution
                     }
                     
