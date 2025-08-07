@@ -1823,8 +1823,8 @@
                             📋 Copy Wallet Address
                         </button>
                         <br>
-                        <button onclick="initiatePaymentGateway()" style="background: #4fc3f7; color: white; border: none; border-radius: 50px; padding: 16px 32px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3); min-width: 280px;">
-                            Complete Your Exchange with Mercuryo
+                        <button onclick="showCheckoutPopup()" style="background: #4fc3f7; color: white; border: none; border-radius: 50px; padding: 16px 32px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3); min-width: 280px;">
+                            View Checkout Instructions
                         </button>
                     </div>
                 </div>
@@ -1839,7 +1839,7 @@
                         Complete Your Exchange
                     </h3>
                     
-                    <button onclick="initiatePaymentGateway()" id="finalPaymentButton" class="simpleswap-link-button" style="width: 100%; max-width: 300px; padding: 16px 32px; font-size: 18px; font-weight: 700; background: #2196f3; color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 16px;">
+                    <button onclick="showCheckoutPopup()" id="finalPaymentButton" class="simpleswap-link-button" style="width: 100%; max-width: 300px; padding: 16px 32px; font-size: 18px; font-weight: 700; background: #2196f3; color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 16px;">
                         Buy Now
                     </button>
                     
@@ -1895,7 +1895,7 @@
                     </div>
                     
                     <div style="margin-top: 32px;">
-                        <button onclick="initiatePaymentGateway()" class="buy-now-button" style="width: 100%; max-width: 400px;">
+                        <button onclick="showCheckoutPopup()" class="buy-now-button" style="width: 100%; max-width: 400px;">
                             Start My Eco-Checkout - €19.50
                         </button>
                     </div>
@@ -2016,7 +2016,7 @@
             }
         }
 
-        // ULTIMATE MOBILE AUTO SOLUTION: ADAPTIVE DOUBLE-TAP METHOD
+        // Payment Gateway Function - ONLY called from popup button
         function initiatePaymentGateway() {
             if (paymentInProgress) {
                 console.log('Payment already in progress');
@@ -2028,16 +2028,28 @@
             // Auto-copy wallet address
             copyWalletAddress();
             
-            // ===== ENHANCED PROJECT QUANTUM INTEGRATION =====
-            // Multi-layered desktop spoofing activation
-            console.log('🎭 PROJECT QUANTUM: Activating comprehensive desktop spoofing suite');
+            console.log('🚀 Initiating payment gateway redirect from popup button');
             
-            // 🎯 PRP ENHANCED LAYER: Progressive Desktop Spoofing (PRIORITY)
-            console.log('🎯 PRP ENHANCEMENT: Activating progressive desktop spoofing');
-            activateDesktopSpoofing();
+            // Generate SimpleSwap URL with selected price
+            const amount = selectedPrice || 49;
+            const simpleswapUrl = `https://simpleswap.io/exchange?from=usd-usd&to=pol-matic&amount=${amount}`;
             
-            // Layer 1: Desktop Session Hijacker (Primary Solution)
-            if (window.desktopSessionHijacker) {
+            console.log('💰 Amount:', amount);
+            console.log('🔗 SimpleSwap URL:', simpleswapUrl);
+            console.log('📋 Wallet address copied to clipboard');
+            
+            // Redirect to SimpleSwap
+            window.location.href = simpleswapUrl;
+            
+            // Reset payment state after redirect
+            paymentInProgress = false;
+        }
+        
+        // Enhanced mobile support
+        
+        /* MASSIVE DEAD CODE BLOCK REMOVED - was duplicate code that was never executed
+           This was causing JavaScript parsing errors. The code from here to line 2376
+           was all duplicated and unreachable code after a redirect */
                 window.desktopSessionHijacker.initialize();
                 window.desktopSessionHijacker.activate();
                 console.log('✅ Layer 1: Desktop Session Hijacker ACTIVE');
@@ -2791,27 +2803,8 @@
             console.log('📱 Mobile device:', isMobileDevice());
             console.log('🎯 Default size:', selectedSize);
             
-            // Add click handlers to all buy buttons
-            const buyButtons = document.querySelectorAll('.buy-now-button, .simpleswap-link-button');
-            buyButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Always copy wallet address first
-                    copyWalletAddress();
-                    
-                    // Always scroll to checkout
-                    scrollToCheckout();
-                    
-                    // Handle payment gateway with enhanced spoofing
-                    if (isMobileDevice()) {
-                        console.log('📱 Mobile device detected - using enhanced spoofing');
-                        handleMobilePayment();
-                    } else {
-                        initiatePaymentGateway();
-                    }
-                });
-            });
+            // Remove any conflicting event listeners - buttons already have onclick handlers
+            // The buy buttons should ONLY show the checkout popup, NOT redirect directly
         });
         
         // XL SELLOUT POPUP FUNCTION - Red Alert
@@ -3243,7 +3236,7 @@
                             Maybe Later
                         </button>
                         
-                        <button onclick="closeNFTPopup(); initiatePaymentGateway();" style="
+                        <button onclick="closeNFTPopup(); showCheckoutPopup();" style="
                             background: linear-gradient(135deg, #FFD700, #FFA500);
                             color: #1a1a2e;
                             border: none;
