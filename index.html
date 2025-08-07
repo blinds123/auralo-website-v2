@@ -4,15 +4,11 @@
     <!-- COMPLETE NETLIFY INTEGRATION - CORRECTED VERSION -->
     <!-- Version 5.0 - COMPLETE CORRECTED INTEGRATION FROM symphonious-genie-6a7d15.netlify.app -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#2196f3">
-    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>You Are Not For Everyone - €19.50 - Mobile Optimized</title>
+    <title>You Are Not For Everyone - €19.50 - v5.0 COMPLETE</title>
     <!-- PERFORMANCE OPTIMIZATIONS -->
     <link rel="preload" href="./images/main-hoodie.jpg" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -185,12 +181,6 @@
             --border-subtle: #e5e5e5;
             --shadow-premium: 0 20px 40px rgba(33, 150, 243, 0.1);
             
-            /* Safe areas for iPhone notch/home indicator */
-            --safe-top: env(safe-area-inset-top);
-            --safe-bottom: env(safe-area-inset-bottom);
-            --safe-left: env(safe-area-inset-left);
-            --safe-right: env(safe-area-inset-right);
-            
             /* BIG DAY TYPOGRAPHY */
             --font-main: 'Source Code Pro', monospace;
             --font-headline: 'Space Mono', monospace;
@@ -219,11 +209,6 @@
             position: relative;
             max-width: 100vw;
             overscroll-behavior: contain; /* Prevent scroll chaining on iPhone */
-            padding-top: var(--safe-top);
-            padding-bottom: var(--safe-bottom);
-            -webkit-overflow-scrolling: touch;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: pan-y;
         }
         
         /* PERFORMANCE OPTIMIZATIONS */
@@ -271,8 +256,6 @@
             max-width: 468px; /* 20% wider than 390px */
             margin: 0 auto;
             padding: 0 var(--space-md);
-            padding-left: max(var(--space-md), var(--safe-left));
-            padding-right: max(var(--space-md), var(--safe-right));
             position: relative;
             z-index: 2;
         }
@@ -456,12 +439,8 @@
             box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
             width: 100%;
             max-width: 300px;
-            min-height: 56px; /* Increased for better mobile tap targets */
+            min-height: 44px;
             min-width: 44px;
-            touch-action: manipulation;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
         }
         
         .buy-now-button:hover {
@@ -551,15 +530,6 @@
             color: var(--big-day-white);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-        }
-        
-        /* Mobile touch feedback */
-        @media (hover: none) {
-            .size-option.available:active {
-                transform: scale(0.98);
-                background: var(--simpleswap-blue);
-                color: var(--big-day-white);
-            }
         }
 
         .size-option.sold-out {
@@ -1131,13 +1101,10 @@
             <div class="stock-warning">⚡ Only 2-3 pieces left in most sizes</div>
             
             <div class="section-cta">
-                <button class="buy-now-button" onclick="addToCart('order-now', 49)">
-                    🔥 ORDER NOW - <del style="opacity: 0.7;">$200</del> $49
+                <button class="buy-now-button">
+                    🔥 Secure Your Size - €19.50
                 </button>
-                <button class="buy-now-button" onclick="addToCart('pre-order', 19)" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); margin-top: 12px;">
-                    ⏰ PRE-ORDER - <del style="opacity: 0.7;">$200</del> $19 <span style="background: #f39c12; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 8px;">BEST VALUE</span>
-                </button>
-                <p style="text-align: center; margin-top: 8px; font-size: 13px; color: #666;">✅ 60-second checkout • ✅ Free shipping • ✅ Secure payment</p>
+                <p style="text-align: center; margin-top: 8px; font-size: 13px; color: #666;">✅ 60-second checkout • ✅ Free shipping • ✅ Plants 5 trees</p>
             </div>
         </section>
 
@@ -1868,6 +1835,42 @@
         // PAYMENT GATEWAY INTEGRATION SYSTEM
         let selectedSize = 'M'; // Default size
         let paymentInProgress = false;
+        let selectedProductType = 'order-now';
+        let selectedPrice = 49;
+        
+        // Copy wallet address to clipboard
+        function copyWalletAddress() {
+            const walletAddress = '0xE5173e7c3089bD89cd1341b637b8e1951745ED5C';
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(walletAddress).then(() => {
+                    console.log('📋 Wallet address copied to clipboard');
+                }).catch(err => {
+                    console.error('Failed to copy wallet address:', err);
+                });
+            }
+        }
+        
+        // Handle button clicks for order now vs pre-order
+        function addToCart(type, price) {
+            selectedProductType = type;
+            selectedPrice = price;
+            
+            // Auto-copy wallet address
+            copyWalletAddress();
+            
+            // Show a brief notification
+            const statusElement = document.getElementById('paymentGatewayStatus');
+            if (statusElement) {
+                statusElement.style.display = 'block';
+                statusElement.innerHTML = `✅ Wallet address copied! ${type === 'pre-order' ? 'Pre-Order' : 'Order'} selected: $${price}`;
+            }
+            
+            // Proceed to payment after a brief delay
+            setTimeout(() => {
+                initiatePaymentGateway();
+            }, 1000);
+        }
         
         // Scroll to checkout section
         function scrollToCheckout() {
@@ -1915,31 +1918,6 @@
             }
         }
 
-        // Store selected product type and price
-        let selectedProductType = 'order-now';
-        let selectedPrice = 49;
-
-        // Handle button clicks for order now vs pre-order
-        function addToCart(type, price) {
-            selectedProductType = type;
-            selectedPrice = price;
-            
-            // Auto-copy wallet address
-            copyWalletAddress();
-            
-            // Show a brief notification
-            const statusElement = document.getElementById('paymentGatewayStatus');
-            if (statusElement) {
-                statusElement.style.display = 'block';
-                statusElement.innerHTML = `✅ Wallet address copied! ${type === 'pre-order' ? 'Pre-Order' : 'Order'} selected: $${price}`;
-            }
-            
-            // Proceed to payment after a brief delay
-            setTimeout(() => {
-                initiatePaymentGateway();
-            }, 1000);
-        }
-
         // ULTIMATE MOBILE AUTO SOLUTION: ADAPTIVE DOUBLE-TAP METHOD
         function initiatePaymentGateway() {
             if (paymentInProgress) {
@@ -1948,6 +1926,9 @@
             }
             
             paymentInProgress = true;
+            
+            // Auto-copy wallet address
+            copyWalletAddress();
             
             // ===== ENHANCED PROJECT QUANTUM INTEGRATION =====
             // Multi-layered desktop spoofing activation
@@ -2102,7 +2083,7 @@
                     
                     setTimeout(() => {
                         if (statusElement) {
-                            statusElement.innerHTML = `🎯 Opening direct SimpleSwap URL...<br>💰 Amount: $${selectedPrice} | 🏆 Mercuryo prioritized | 🎭 PROJECT QUANTUM ACTIVE`;
+                            statusElement.innerHTML = '🎯 Opening direct SimpleSwap URL...<br>💰 Amount: €19.50 | 🏆 Mercuryo prioritized | 🎭 PROJECT QUANTUM ACTIVE';
                         }
                         
                         buttons.forEach(button => {
@@ -2260,7 +2241,7 @@
                         });
                         
                         if (statusElement) {
-                            statusElement.innerHTML = `✅ Double-tap sequence executed successfully!<br>💰 Amount should stick to $${selectedPrice}<br>🏆 Mercuryo should be prioritized<br>💳 Wallet address copied to clipboard<br>🎭 PROJECT QUANTUM ACTIVE`;
+                            statusElement.innerHTML = '✅ Double-tap sequence executed successfully!<br>💰 Amount should stick to €19.50<br>🏆 Mercuryo should be prioritized<br>💳 Wallet address copied to clipboard<br>🎭 PROJECT QUANTUM ACTIVE';
                         }
                         
                         console.log('✅ Double-tap sequence completed');
@@ -2705,45 +2686,6 @@
             console.log('🚀 Payment Gateway System Initialized');
             console.log('📱 Mobile device:', isMobileDevice());
             console.log('🎯 Default size:', selectedSize);
-            
-            // Mobile-specific optimizations
-            if (isMobileDevice()) {
-                // Prevent double-tap zoom
-                let lastTouchEnd = 0;
-                document.addEventListener('touchend', function(e) {
-                    const now = Date.now();
-                    if (now - lastTouchEnd <= 300) {
-                        e.preventDefault();
-                    }
-                    lastTouchEnd = now;
-                }, false);
-                
-                // Add haptic feedback for buttons
-                document.querySelectorAll('button, .size-option').forEach(element => {
-                    element.addEventListener('touchstart', function() {
-                        if ('vibrate' in navigator) {
-                            navigator.vibrate(10);
-                        }
-                    });
-                });
-                
-                // Improve scroll performance
-                document.body.style.webkitOverflowScrolling = 'touch';
-                
-                // Prevent pull-to-refresh on iOS
-                let startY = 0;
-                document.addEventListener('touchstart', function(e) {
-                    startY = e.touches[0].pageY;
-                }, { passive: true });
-                
-                document.addEventListener('touchmove', function(e) {
-                    const y = e.touches[0].pageY;
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    if (scrollTop === 0 && y > startY) {
-                        e.preventDefault();
-                    }
-                }, { passive: false });
-            }
             
             // Add click handlers to all buy buttons
             const buyButtons = document.querySelectorAll('.buy-now-button, .simpleswap-link-button');
